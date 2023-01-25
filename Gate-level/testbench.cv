@@ -1,0 +1,66 @@
+module four_bit_signed_adder_with_ov_tb ();
+  
+  
+  reg [3:0]a;
+  reg [3:0]b;
+  
+  wire [3:0]s;
+  wire ov;
+  wire cout;
+  
+  four_bit_signed_adder_with_ov four_bit_signed_adder_with_ov(s[3:0],ov,cout,a[3:0],b[3:0]);
+  initial begin
+    
+    $dumpfile("dump.vcd");
+   	$dumpvars(1);
+    // a[3] & b[3] are the MSBs
+    //two positive numberswithout overflow
+    a[3]=0;
+    a[2]=1;
+    a[1]=0;
+    a[0]=1;
+    
+    b[3]=0;
+    b[2]=0;
+    b[1]=0;
+    b[0]=1;
+    #20;
+    
+    //two positive numbers with overflow
+    a[3]=0;
+    a[2]=1;
+    a[1]=0;
+    a[0]=1;
+    
+    b[3]=0;
+    b[2]=1;
+    b[1]=1;
+    b[0]=1;
+    #20;
+    
+    //two negative numbers without overflow
+    a[3]=1;
+    a[2]=1;
+    a[1]=0;
+    a[0]=1;
+    
+    b[3]=1;
+    b[2]=1;
+    b[1]=1;
+    b[0]=1;
+    #20;
+    
+    //two negative numbers withoverflow
+    a[3]=1;
+    a[2]=0;
+    a[1]=0;
+    a[0]=1;
+    
+    b[3]=1;
+    b[2]=0;
+    b[1]=1;
+    b[0]=0;
+    #20;
+  end
+endmodule
+  
